@@ -32,11 +32,10 @@ h2 {
 
 ## Table of Contents
 
-- [GitHub repository information](#repo-info)
-- [Animated GIF creation](#gif-creation)
-- [Final GIF](#final-gif)
-- [Learning reflection](#learning-reflection)
-
+-   [GitHub repository information](#repo-info)
+-   [Animated GIF creation](#gif-creation)
+-   [Final GIF](#final-gif)
+-   [Learning reflection](#learning-reflection)
 
 ## GitHub repository information {#repo-info}
 
@@ -96,11 +95,17 @@ frames <- c(sausage_frame, sausage_roll_frame, drum_frame, drum_roll_frame,
             bank_frame, bank_roll_frame, rick_frame, rick_roll_frame)
 ```
 
-
 ### Final GIF {#gif}
+
 ```{r warning = FALSE, message= FALSE}
 image_animate(frames, fps=1)
 ```
 
-##  Learning Reflection {#learning-reflection}
-During this assignment, I learned a LOT from Module 1 - Creating HTML by combining modern technologies. Coming from a prior programming background, I'm definitely keen and interested to learn more about what R can offer me and what advantages it may have compared to using other languages (e.g Python) for data analysis.
+## Learning Reflection {#learning-reflection}
+
+### An important idea
+During this assignment, I learned a LOT from <b>Module 1 - Creating HTML by combining modern technologies</b>. One important idea that I learned was using RMarkdown to structure and dynamically create webpages using knitting. I was familiar with markdown before this course, however, I did not expect this powerful functionality to transform markdown with embedded R code chunks into full HTML pages. This definitely streamlines a lot of things, and offers people with little-to-no knowledge about web development to create simple webpages quite easily.
+
+
+### What I'm curious to explore further
+Coming from a prior programming background, I'm definitely keen and interested to learn more about what R can offer me and what advantages it may have compared to using other languages (e.g Python) for data analysis. Another thing that I'm interested in exploring further would be the different ways that R offers to visualize data, as well as additional data visualization libraries that may exist.
