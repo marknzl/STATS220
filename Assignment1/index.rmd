@@ -1,0 +1,38 @@
+---
+title: "Assignment 1"
+subtitle: "STATS 220 Semester One 2022"
+output: html_document
+date: '2022-03-19'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## GitHub repository information
+
+To access my GitHub repository for this assignment, click [here!](https://github.com/marknzl/STATS220) Summary of what I'm sharing in my STATS 220 repo:
+
+* The meme I have made
+* The code for the meme that I made
+* Explanation behind the motivation for the meme
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
