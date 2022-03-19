@@ -63,9 +63,11 @@ rick_roll_url <-"https://www.thetimes.co.uk/imageserver/image/%2Fmethode%2Fsunda
 
 sausage_frame = image_read(sausage_url) %>%
   image_scale("500x500") %>% 
-  image_annotate("Sausage", size=30, location="+200")
+  image_annotate("Sausage", size = 30, location="+200")
 
-sausage_roll_frame = image_read(sausage_roll_url) %>% image_scale("500x500") %>% image_annotate("Sausage roll", size = 30, location = "+279+230", color = "white")
+sausage_roll_frame = image_read(sausage_roll_url) %>% 
+  image_scale("500x500") %>% 
+  image_annotate("Sausage roll", size = 30, location = "+279+230", color = "white")
 
 drum_frame = image_read(drum_url) %>%
   image_scale("500x500") %>% 
@@ -73,7 +75,7 @@ drum_frame = image_read(drum_url) %>%
 
 drum_roll_frame = image_read(drum_roll_url) %>% 
   image_scale("500x500") %>% 
-  image_annotate("Drum roll", size=30, location = "+100+100")
+  image_annotate("Drum roll", size = 30, location = "+100+100")
 
 bank_frame = image_read(bank_url) %>%
   image_scale("500x500")
@@ -88,7 +90,7 @@ rick_frame = image_read(rick_url) %>%
 
 rick_roll_frame = image_read(rick_roll_url) %>%
   image_scale("500x500") %>%
-  image_annotate("Rickroll", size = 30)
+  image_annotate("Rickroll", size = 30, location="+50+50")
 
 frames <- c(sausage_frame, sausage_roll_frame, drum_frame, drum_roll_frame,
             bank_frame, bank_roll_frame, rick_frame, rick_roll_frame)
