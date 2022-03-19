@@ -44,6 +44,8 @@ To access my GitHub repository for this assignment, click [here!](https://github
 -   The meme I have made
 -   The code for the meme that I made
 -   Explanation behind the motivation for the meme
+-   Source code for the RMarkdown file
+-   Generated HTML page
 
 ## Animated GIF creation {#gif-creation}
 
