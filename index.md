@@ -2,10 +2,10 @@
 Ah, I've seen you've made it to my ~~ugly~~ totally sexy GitHub pages site. Welcome :))
 
 ### Table of contents 📘: 
-1. [My beautiful meme](#my-beautiful-meme)
-2. [Motivation behind the meme](#motivation-behind-the-meme)
-3. [R code for the meme](#r-code-for-the-meme)
-4. [Meme sources](#meme-sources)
+1. My beautiful meme
+2. Motivation behind the meme
+3. R code for the meme
+4. Meme sources
 
 ## My beautiful meme 📷
 Here is the meme I made using the R package [magick](https://cran.r-project.org/web/packages/magick/vignettes/intro.html). You can install it youself easily by running `install.packages("magick")` on the Rstudio console.
