@@ -8,6 +8,7 @@ Hello there! Welcome to my *repo* 😎. This is repo contains my submission for 
 - [R code for meme](https://github.com/marknzl/STATS220/blob/PartA/Assignment1/meme.R)
 - [Meme file itself](https://github.com/marknzl/STATS220/blob/PartA/Assignment1/spicy_meme.png)
 - [Meme image source](https://i.imgflip.com/3edj3m.png)
+- [R markdown code](https://github.com/marknzl/STATS220/blob/PartB/Assignment1/index.rmd)
 
 ## Packages used 📦
 - [magick](https://cran.r-project.org/web/packages/magick/vignettes/intro.html)

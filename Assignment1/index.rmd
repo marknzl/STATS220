@@ -1,0 +1,116 @@
+---
+title: "Assignment 1"
+subtitle: "STATS 220 Semester One 2022"
+output: html_document
+date: '2022-03-19'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{css, echo=FALSE}
+body {
+  background-color: black;
+}
+
+h1, h2, h3, h4, p, ul, li {
+  color: white;
+}
+
+h1 {
+  text-decoration: underline;
+}
+
+h2 {
+  border: 3px;
+  border-style: solid;
+  border-color: #FFFF00;
+  padding: 1em;
+}
+```
+
+## Table of Contents
+
+-   [GitHub repository information](#repo-info)
+-   [Animated GIF creation](#gif-creation)
+-   [Final GIF](#final-gif)
+-   [Learning reflection](#learning-reflection)
+
+## GitHub repository information {#repo-info}
+
+To access my GitHub repository for this assignment, click [here!](https://github.com/marknzl/STATS220) Summary of what I'm sharing in my STATS 220 repo:
+
+-   The meme I have made
+-   The code for the meme that I made
+-   Explanation behind the motivation for the meme
+
+## Animated GIF creation {#gif-creation}
+
+```{r warning = FALSE, message = FALSE, echo = TRUE}
+library(magick)
+
+# URL image constants
+sausage_url <- "https://www.swissdeli.co.nz/wp-content/uploads/AdobeStock_275152360-300x200.jpeg"
+sausage_roll_url <- "https://www.thespruceeats.com/thmb/jIw9E8c0Y655rPvJXs8YE8eVQJY=/2119x1192/smart/filters:no_upscale()/sausage-roll-901ecec7f1d54c10940c1bdbbc1b8e46.jpg"
+drum_url <- "https://upload.wikimedia.org/wikipedia/commons/b/b2/Drumhead_Coated_on_Snare_Drum.png"
+drum_roll_url <- "https://www.wikihow.com/images/thumb/d/d1/Do-a-Drum-Roll-Step-14-Version-2.jpg/aid11235058-v4-1200px-Do-a-Drum-Roll-Step-14-Version-2.jpg"
+bank_url <- "https://www.interest.co.nz/sites/default/files/feature_images/bank-3_1_0_0.jpg"
+bank_roll_url <- "https://2.bp.blogspot.com/-952sjoTY4m0/V57qyWJzHVI/AAAAAAAAEy8/riKCR_sE5mAvpHI43NF7Q2BwBjkTnJSxACLcB/s640/Building%2BYour%2BPoker%2BBankroll.jpg"
+rick_url <- "https://cdn1.dotesports.com/wp-content/uploads/2021/06/08034442/E3VqmtLWQAMg-eB-768x432.jpg"
+rick_roll_url <-"https://www.thetimes.co.uk/imageserver/image/%2Fmethode%2Fsundaytimes%2Fprod%2Fweb%2Fbin%2Fe6496bba-3356-11ec-91da-063c6e372e74.jpg?crop=2667%2C1500%2C0%2C0&resize=1200"
+
+sausage_frame = image_read(sausage_url) %>%
+  image_scale("500x500") %>% 
+  image_annotate("Sausage", size = 30, location="+200")
+
+sausage_roll_frame = image_read(sausage_roll_url) %>% 
+  image_scale("500x500") %>% 
+  image_annotate("Sausage roll", size = 30, location = "+279+230", color = "white")
+
+
+drum_frame = image_read(drum_url) %>%
+  image_scale("500x500") %>% 
+  image_annotate("Drum", size = 30, color = "white")
+
+drum_roll_frame = image_read(drum_roll_url) %>% 
+  image_scale("500x500") %>% 
+  image_annotate("Drum roll", size = 30, location = "+100+100")
+
+
+bank_frame = image_read(bank_url) %>%
+  image_scale("500x500")
+
+bank_roll_frame = image_read(bank_roll_url) %>%
+  image_scale("500x500") %>%
+  image_annotate("Bank roll", size = 30)
+
+
+rick_frame = image_read(rick_url) %>%
+  image_scale("500x500") %>%
+  image_annotate("Rick ---->", color="orange", size = 30, location = "+50+200")
+
+rick_roll_frame = image_read(rick_roll_url) %>%
+  image_scale("500x500") %>%
+  image_annotate("Rickroll", size = 30, location="+50+50")
+
+
+
+frames <- c(sausage_frame, sausage_roll_frame, drum_frame, drum_roll_frame,
+            bank_frame, bank_roll_frame, rick_frame, rick_roll_frame)
+```
+
+### Final GIF {#gif}
+
+```{r warning = FALSE, message= FALSE, echo = TRUE}
+image_animate(frames, fps=1)
+```
+
+## Learning Reflection {#learning-reflection}
+
+### An important idea
+During this assignment, I learned a LOT from <b>Module 1 - Creating HTML by combining modern technologies</b>. In particular, one important idea that I learned was using RMarkdown to structure and dynamically create webpages using knitting. I was familiar with markdown before this course, however, I did not expect this powerful functionality to transform markdown with embedded R code chunks into full HTML pages. This definitely streamlines a lot of things, and offers people with little-to-no knowledge about web development to create simple webpages quite easily. This presents people with the opportunity to create powerful data-driven reports without the hassle of dealing with specific HTML related things, allowing them to focus more on the actual content. As a side note, I also learned that you can change the output format to things such as PDFs and Microsoft Word documents.
+
+
+### What I'm curious to explore further
+Coming from a prior programming background, I'm definitely keen and interested to learn more about what R can offer me and what advantages it may have compared to using other languages (e.g Python) for data analysis. Another thing that I'm interested in exploring further would be the different ways that R offers to visualize data, as well as additional data visualization libraries that may exist.
