@@ -4,6 +4,7 @@
 Hello there! Welcome to my *repo* 😎. This is repo contains my submission for **STATS 220 Assignment 1**. You can view the GitHub page site linked to this repo by clicking [here](https://marknzl.github.io/STATS220/). Enjoy 😉
 
 ## Quick links 🌐
+- [GitHub pages site](https://marknzl.github.io/STATS220/)
 - [R code for meme](https://github.com/marknzl/STATS220/blob/PartA/Assignment1/meme.R)
 - [Meme file itself](https://github.com/marknzl/STATS220/blob/PartA/Assignment1/spicy_meme.png)
 - [Meme image source](https://i.imgflip.com/3edj3m.png)
