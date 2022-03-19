@@ -430,6 +430,7 @@ sausage_roll_frame = image_read(sausage_roll_url) %&gt;%
   image_scale(&quot;500x500&quot;) %&gt;% 
   image_annotate(&quot;Sausage roll&quot;, size = 30, location = &quot;+279+230&quot;, color = &quot;white&quot;)
 
+
 drum_frame = image_read(drum_url) %&gt;%
   image_scale(&quot;500x500&quot;) %&gt;% 
   image_annotate(&quot;Drum&quot;, size = 30, color = &quot;white&quot;)
@@ -438,12 +439,14 @@ drum_roll_frame = image_read(drum_roll_url) %&gt;%
   image_scale(&quot;500x500&quot;) %&gt;% 
   image_annotate(&quot;Drum roll&quot;, size = 30, location = &quot;+100+100&quot;)
 
+
 bank_frame = image_read(bank_url) %&gt;%
   image_scale(&quot;500x500&quot;)
 
 bank_roll_frame = image_read(bank_roll_url) %&gt;%
   image_scale(&quot;500x500&quot;) %&gt;%
   image_annotate(&quot;Bank roll&quot;, size = 30)
+
 
 rick_frame = image_read(rick_url) %&gt;%
   image_scale(&quot;500x500&quot;) %&gt;%
@@ -452,6 +455,8 @@ rick_frame = image_read(rick_url) %&gt;%
 rick_roll_frame = image_read(rick_roll_url) %&gt;%
   image_scale(&quot;500x500&quot;) %&gt;%
   image_annotate(&quot;Rickroll&quot;, size = 30, location=&quot;+50+50&quot;)
+
+
 
 frames &lt;- c(sausage_frame, sausage_roll_frame, drum_frame, drum_roll_frame,
             bank_frame, bank_roll_frame, rick_frame, rick_roll_frame)</code></pre>
