@@ -47,7 +47,7 @@ To access my GitHub repository for this assignment, click [here!](https://github
 
 ## Animated GIF creation {#gif-creation}
 
-```{r warning = FALSE, message = FALSE}
+```{r warning = FALSE, message = FALSE, echo = TRUE}
 library(magick)
 
 # URL image constants
@@ -97,14 +97,14 @@ frames <- c(sausage_frame, sausage_roll_frame, drum_frame, drum_roll_frame,
 
 ### Final GIF {#gif}
 
-```{r warning = FALSE, message= FALSE}
+```{r warning = FALSE, message= FALSE, echo = TRUE}
 image_animate(frames, fps=1)
 ```
 
 ## Learning Reflection {#learning-reflection}
 
 ### An important idea
-During this assignment, I learned a LOT from <b>Module 1 - Creating HTML by combining modern technologies</b>. One important idea that I learned was using RMarkdown to structure and dynamically create webpages using knitting. I was familiar with markdown before this course, however, I did not expect this powerful functionality to transform markdown with embedded R code chunks into full HTML pages. This definitely streamlines a lot of things, and offers people with little-to-no knowledge about web development to create simple webpages quite easily.
+During this assignment, I learned a LOT from <b>Module 1 - Creating HTML by combining modern technologies</b>. In particular, one important idea that I learned was using RMarkdown to structure and dynamically create webpages using knitting. I was familiar with markdown before this course, however, I did not expect this powerful functionality to transform markdown with embedded R code chunks into full HTML pages. This definitely streamlines a lot of things, and offers people with little-to-no knowledge about web development to create simple webpages quite easily. This presents people with the opportunity to create powerful data-driven reports without the hassle of dealing with specific HTML related things, allowing them to focus more on the actual content. As a side note, I also learned that you can change the output format to things such as PDFs and Microsoft Word documents.
 
 
 ### What I'm curious to explore further
