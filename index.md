@@ -10,7 +10,7 @@ Ah, I've seen you've made it to my ~~ugly~~ totally sexy GitHub pages site. Welc
 ## My beautiful meme 📷
 Here is the meme I made using the R package [magick](https://cran.r-project.org/web/packages/magick/vignettes/intro.html). You can install it youself easily by running `install.packages("magick")` on the Rstudio console.
 
-![My beautiful meme](https://github.com/marknzl/STATS220/blob/PartA/Assignment1/spicy_meme.png)
+![My beautiful meme](https://github.com/marknzl/STATS220/blob/PartA/Assignment1/spicy_meme.png?raw=true)
 
 ## Motivation behind the meme 😤
 The motivation behind this meme is quite simple. At **The University of Auckland**, there are **three** main degrees that people pursue to get a job in the software industry:
