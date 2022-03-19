@@ -23,7 +23,7 @@ I myself am a CS student, hence why `"Computer Science"` is captioned next to th
 - They spend an extra year (4 years total) compared to us (3 years total), even though we get the same jobs
 - Computer Science sounds cooler 😎
 
-**NOTE:** This meme is purely for fun and satirical reasons - no hate on fellow SE students .
+***NOTE:** This meme is purely for fun and satirical reasons - no hate on fellow SE students :)*
 
 ## R code for the meme 💻
 ```r
