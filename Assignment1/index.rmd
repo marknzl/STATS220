@@ -7,7 +7,7 @@ date: '2022-03-19'
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, error = FALSE, warning = FALSE, message = FALSE)
 ```
 
 ```{css, echo=FALSE}
