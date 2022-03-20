@@ -1,5 +1,6 @@
 ---
 title: "Assignment 1"
+author: "Mark Anklesaria"
 subtitle: "STATS 220 Semester One 2022"
 output: html_document
 date: '2022-03-19'
