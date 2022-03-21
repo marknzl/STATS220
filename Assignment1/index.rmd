@@ -56,7 +56,7 @@ To access my GitHub repository for this assignment, click [here!](https://github
 ```{r warning = FALSE, message = FALSE, echo = TRUE}
 library(magick)
 
-# URL image constants
+# Image URL constants
 sausage_url <- "https://www.swissdeli.co.nz/wp-content/uploads/AdobeStock_275152360-300x200.jpeg"
 sausage_roll_url <- "https://www.thespruceeats.com/thmb/jIw9E8c0Y655rPvJXs8YE8eVQJY=/2119x1192/smart/filters:no_upscale()/sausage-roll-901ecec7f1d54c10940c1bdbbc1b8e46.jpg"
 drum_url <- "https://upload.wikimedia.org/wikipedia/commons/b/b2/Drumhead_Coated_on_Snare_Drum.png"
@@ -66,6 +66,7 @@ bank_roll_url <- "https://2.bp.blogspot.com/-952sjoTY4m0/V57qyWJzHVI/AAAAAAAAEy8
 rick_url <- "https://cdn1.dotesports.com/wp-content/uploads/2021/06/08034442/E3VqmtLWQAMg-eB-768x432.jpg"
 rick_roll_url <-"https://www.thetimes.co.uk/imageserver/image/%2Fmethode%2Fsundaytimes%2Fprod%2Fweb%2Fbin%2Fe6496bba-3356-11ec-91da-063c6e372e74.jpg?crop=2667%2C1500%2C0%2C0&resize=1200"
 
+# Sausage frames
 sausage_frame = image_read(sausage_url) %>%
   image_scale("500x500") %>% 
   image_annotate("Sausage", size = 30, location="+200")
@@ -75,6 +76,7 @@ sausage_roll_frame = image_read(sausage_roll_url) %>%
   image_annotate("Sausage roll", size = 30, location = "+279+230", color = "white")
 
 
+# Drum frames
 drum_frame = image_read(drum_url) %>%
   image_scale("500x500") %>% 
   image_annotate("Drum", size = 30, color = "white")
@@ -84,6 +86,7 @@ drum_roll_frame = image_read(drum_roll_url) %>%
   image_annotate("Drum roll", size = 30, location = "+100+100")
 
 
+# Bank frames
 bank_frame = image_read(bank_url) %>%
   image_scale("500x500")
 
@@ -92,6 +95,7 @@ bank_roll_frame = image_read(bank_roll_url) %>%
   image_annotate("Bank roll", size = 30)
 
 
+# Rick frames
 rick_frame = image_read(rick_url) %>%
   image_scale("500x500") %>%
   image_annotate("Rick ---->", color="orange", size = 30, location = "+50+200")
@@ -101,7 +105,7 @@ rick_roll_frame = image_read(rick_roll_url) %>%
   image_annotate("Rickroll", size = 30, location="+50+50")
 
 
-
+# Frames vector containing collection of created frames
 frames <- c(sausage_frame, sausage_roll_frame, drum_frame, drum_roll_frame,
             bank_frame, bank_roll_frame, rick_frame, rick_roll_frame)
 ```

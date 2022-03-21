@@ -418,7 +418,7 @@ sharing in my STATS 220 repo:</p>
 <h2>Animated GIF creation</h2>
 <pre class="r"><code>library(magick)
 
-# URL image constants
+# Image URL constants
 sausage_url &lt;- &quot;https://www.swissdeli.co.nz/wp-content/uploads/AdobeStock_275152360-300x200.jpeg&quot;
 sausage_roll_url &lt;- &quot;https://www.thespruceeats.com/thmb/jIw9E8c0Y655rPvJXs8YE8eVQJY=/2119x1192/smart/filters:no_upscale()/sausage-roll-901ecec7f1d54c10940c1bdbbc1b8e46.jpg&quot;
 drum_url &lt;- &quot;https://upload.wikimedia.org/wikipedia/commons/b/b2/Drumhead_Coated_on_Snare_Drum.png&quot;
@@ -428,6 +428,7 @@ bank_roll_url &lt;- &quot;https://2.bp.blogspot.com/-952sjoTY4m0/V57qyWJzHVI/AAA
 rick_url &lt;- &quot;https://cdn1.dotesports.com/wp-content/uploads/2021/06/08034442/E3VqmtLWQAMg-eB-768x432.jpg&quot;
 rick_roll_url &lt;-&quot;https://www.thetimes.co.uk/imageserver/image/%2Fmethode%2Fsundaytimes%2Fprod%2Fweb%2Fbin%2Fe6496bba-3356-11ec-91da-063c6e372e74.jpg?crop=2667%2C1500%2C0%2C0&amp;resize=1200&quot;
 
+# Sausage frames
 sausage_frame = image_read(sausage_url) %&gt;%
   image_scale(&quot;500x500&quot;) %&gt;% 
   image_annotate(&quot;Sausage&quot;, size = 30, location=&quot;+200&quot;)
@@ -437,6 +438,7 @@ sausage_roll_frame = image_read(sausage_roll_url) %&gt;%
   image_annotate(&quot;Sausage roll&quot;, size = 30, location = &quot;+279+230&quot;, color = &quot;white&quot;)
 
 
+# Drum frames
 drum_frame = image_read(drum_url) %&gt;%
   image_scale(&quot;500x500&quot;) %&gt;% 
   image_annotate(&quot;Drum&quot;, size = 30, color = &quot;white&quot;)
@@ -446,6 +448,7 @@ drum_roll_frame = image_read(drum_roll_url) %&gt;%
   image_annotate(&quot;Drum roll&quot;, size = 30, location = &quot;+100+100&quot;)
 
 
+# Bank frames
 bank_frame = image_read(bank_url) %&gt;%
   image_scale(&quot;500x500&quot;)
 
@@ -454,6 +457,7 @@ bank_roll_frame = image_read(bank_roll_url) %&gt;%
   image_annotate(&quot;Bank roll&quot;, size = 30)
 
 
+# Rick frames
 rick_frame = image_read(rick_url) %&gt;%
   image_scale(&quot;500x500&quot;) %&gt;%
   image_annotate(&quot;Rick ----&gt;&quot;, color=&quot;orange&quot;, size = 30, location = &quot;+50+200&quot;)
@@ -463,7 +467,7 @@ rick_roll_frame = image_read(rick_roll_url) %&gt;%
   image_annotate(&quot;Rickroll&quot;, size = 30, location=&quot;+50+50&quot;)
 
 
-
+# Frames vector containing collection of created frames
 frames &lt;- c(sausage_frame, sausage_roll_frame, drum_frame, drum_roll_frame,
             bank_frame, bank_roll_frame, rick_frame, rick_roll_frame)</code></pre>
 <div id="gif" class="section level3">
