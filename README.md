@@ -19,3 +19,6 @@ Hello there! Welcome to my *repo* 😎. This is repo contains my submission for 
     tiger <- image_read_svg('http://jeroen.github.io/images/tiger.svg', width = 350)
     print(tiger)
     ```
+ 
+### *Enjoy*
+![Cool thumbs up](https://www.pngitem.com/pimgs/m/82-829241_emoticon-t-shirt-smiley-emoji-free-download-png.png)
