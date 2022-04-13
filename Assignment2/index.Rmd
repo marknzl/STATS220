@@ -1,0 +1,154 @@
+---
+title: "Assignment 2"
+author: 'Mark Anklesaria'
+output: html_document
+subtitle: "STATS 220 Assignment 2"
+date: '2022-04-06'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+```
+
+```{css, echo=FALSE}
+h2 {
+  border: 3px;
+  border-style: solid;
+  border-color: #3449eb;
+  padding: 0.5em;
+}
+
+h3 {
+  text-decoration: underline;
+}
+
+hr.solid {
+  border-top: 3px solid #bbb;
+}
+```
+
+## Table of Contents
+
+-   [Introduction](#intro)
+-   [Links to form and data](#form-data)
+-   [Analytics](#analytics)
+    - [Table preview](#table-preview)
+    - [Genre analytics](#genre-analytics)
+    - [Listening location analytics](#ll-analytics)
+    - [Listening method analytics](#lm-analytics)
+    - [Listening medium analytics](#lmed-analytics)
+-   [Learning reflection](#learning-reflection)
+
+## Introduction {#intro}
+Within my music survey, I aimed to gather a variety of music listening preferences/habit metrics which would give me some insight into the music listening preferences/habits from my survey participants. I was interested in finding out duration data of peoples' music that they listen to, such as longest song length and how long they listen to music for each day, and also focused out music preference specific aspects such as favourite genre, streaming methods, listening locations, etc...
+
+## Links to form and data    {#form-data}
+- [Link to Google form](https://docs.google.com/forms/d/e/1FAIpQLSf6DS9yzrmJU9bQi-KpiZcNmP2GMMGxtQ_0obbMrk7-RRwThw/viewform)
+- [Link to published CSV file](https://docs.google.com/spreadsheets/d/e/2PACX-1vT3EDN8Gj0slCBdt3X2Y5-AhLU6vyiO2uQMFkoL7aSs7br01stvgzFMMbD6lNdA3aKJuh4jsNN7FhXl/pub?gid=1319887923&single=true&output=csv)
+
+## Analytics {#analytics}
+
+### Table preview {#table-preview}
+
+Here is a table containing the first **5** rows of my data from the survey:
+
+```{r csv-import, warning = FALSE, message = FALSE, echo = FALSE}
+music_data_url <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vT3EDN8Gj0slCBdt3X2Y5-AhLU6vyiO2uQMFkoL7aSs7br01stvgzFMMbD6lNdA3aKJuh4jsNN7FhXl/pub?gid=1319887923&single=true&output=csv"  # URL for my music data
+
+music_data <- read_csv(music_data_url) %>%
+  rename(
+    listening_time = 2,
+    longest_song = 3,
+    listening_methods = 4,
+    favourite_location = 5,
+    favourite_music_aspects = 6,
+    listening_mediums = 7,
+    favourite_genre = 8
+  ) %>%
+  select(listening_time, longest_song, listening_methods, favourite_location, favourite_music_aspects, listening_mediums, favourite_genre)
+  # We use this select() call to filter out table because we don't care about the 'Timestamp' column throughout our report. 
+
+music_data %>%
+  slice(1:5) %>%
+  knitr::kable()
+
+```
+
+In total, there were **`r nrow(music_data)`** people who completed my music survey. Out of all the survey participants, the longest song that someone listened to is **`r max(music_data$longest_song)`** seconds long, which is about **`r round(max(music_data$longest_song) / 60, 2)`** minutes long. Each day, survey participants in total listen to a combined **`r sum(music_data$listening_time)`** minutes worth of music.
+
+<hr class="solid">
+
+### Genre analytics {#genre-analytics}
+
+```{r}
+music_data %>%
+  ggplot() + geom_bar(aes(x = favourite_genre, fill = favourite_genre)) + 
+  labs(title = "Peoples' Favourite Genre", 
+       subtitle = "Comparing the counts of peoples' favourite genres",
+       caption = "Source: My Google form (link above)",
+       x = "Genres", 
+       y = "Count")
+```
+
+The graph above is comparing the counts of peoples' favourite music genres. As seen on the graph above, **EDM** music comes out on top quite significantly as the favourite genre among survey participants with a count of **`r length(music_data$favourite_genre[music_data$favourite_genre == 'EDM'])`**. **Classical**, **Dubstep**, **Jazz**, and **Rap** come in second place, seeming to all have similar counts. In third equals, we have **Country**, **Rock**, and **Other**.
+
+<hr class="solid">
+
+### Listening location analytics {#ll-analytics}
+
+```{r}
+music_data %>%
+  ggplot() + geom_bar(aes(x = favourite_location, fill = favourite_location)) + 
+  labs(title = "Favourite listening locations", 
+       subtitle = "Comparing the counts of peoples' favourite locations to listen to music",
+       caption = "Source: My Google form (link above)",
+       x = "Locations", 
+       y = "Count")
+```
+
+The graph above is comparing the counts of peoples' favourite listening locations for music. The graph above shows that the top two places that people listen to music are **in their room** and **in the shower**. I didn't expect many people to have their favourite listening location to be the shower. **At a concert** coming in the lowest isn't surprising to me, as they are less accessible and much less frequent, especially due to the recent COVID-19 pandemic.
+
+<hr class="solid">
+
+### Listening method analytics {#lm-analytics}
+
+```{r}
+music_data %>%
+  ggplot() + geom_bar(aes(y = listening_methods, fill = listening_methods)) + 
+  labs(title = "Listening methods", 
+       subtitle = "Comparing the counts of peoples' listening methods", 
+       caption = "Source: My Google form (link above)",
+       x = "Methods", 
+       y = "Count")
+```
+
+The graph above is comparing the counts of peoples' listening methods for music. **Paid streaming services** came out on top, which isn't surprising at all to me as we live in a connected digital era with ease of access to the internet, and streaming services tend to be quite economical. What is surprising here is that **TV Music Channels** comes close to **Paid streaming services**. I would not have anticipated that among my participants, **TV Music Channels** would be as popular as **Paid streaming services**.
+
+<hr class="solid">
+
+### Listening medium analytics {#lmed-analytics}
+
+```{r}
+# Since survey participants can select multiple listening mediums they use, each observation will have
+# multiple values in a cell. Luckily, the separate_rows() function call will separate these comma-delimited
+# values into their own rows, thus making it extremely easy for us to count the total frequency of each
+# listening medium.
+
+listening_mediums_longer <- music_data %>%
+  separate_rows(listening_mediums, sep = ", ")
+listening_mediums_longer %>%
+  ggplot() + geom_bar(aes(y = listening_mediums, fill = listening_mediums)) + 
+  labs(title = "Listening mediums", 
+       subtitle = "Comparing the counts of peoples' listening mediums",
+       caption = "Source: My Google form (link above)",
+       x = "Mediums", 
+       y = "Count")
+```
+
+The graph above is comparing the counts of peoples' listening mediums. The graph shows that there is quite an even distribution among listening mediums. People tend to own more than one listening medium (e.g speakers and wired earphones), so it's not surprising to me that there aren't any unusual/odd data points here. However, it does make me wonder what listening medium someone used that made them select **Other**.
+
+## Learning reflection {#learning-reflection}
+One important idea that I have learned from **Module 2 Creating dynamic reporting systems** was how we can easily use R and it's various packages to create dynamic data-driven reports with ease. If I were to do something like this manually, I would probably go use Google sheets to generate graphs and then put them in a doc or something similar. But with R, the process is so much more streamlined and powerful. Three techniques that I have reused from *Assignment 1* were: **(1):** The use of CSS styling on this page, **(2):** the use of comments throughout my code, and **(3):** the use of **bold**/*italics*/-bullet points through markdown. I am curious to explore what other types of graphs can be generated/created using `ggplot` from the `tidyverse` package as it seems to be a pretty powerful tool with lots of capabilities. I'm also curious to explore additional customization options for the graphs that I have used throughout this report as I'm sure that I have only just scratched the surface of what is possible. Also, I would be interested in looking into other data visualization libraries to use within R, and compare/contrast the differences between those and the one that we have used within this assignment.
+
+Just as a side note, I would be interested in knowing what made people put down "**Other**" for **Favourite Genre** and **Listening medium**. Unfortunately due to the scope of our forms as per assignment instructions, we weren't allowed to add a custom user input for an "**Other: ...**" field. However, this can be something to consider in the future if I make a survey again and I don't have any restrictions like I did here, but it could potentially be harder to deal with.
