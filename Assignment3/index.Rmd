@@ -1,0 +1,165 @@
+---
+title: "Assignment 3"
+subtitle: "STATS 220 Semester One 2022"
+author: "Mark Anklesaria"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FALSE)
+library(tidyverse)
+library(jsonlite)
+library(RSQLite)
+library(magick)
+db_connection <- dbConnect(SQLite(), "boardgamegeek.sqlite")
+```
+
+```{css, echo=FALSE}
+h2 {
+  border: 3px;
+  border-style: solid;
+  border-color: #3449eb;
+  padding: 0.5em;
+}
+
+hr.solid {
+  border-top: 3px solid #bbb;
+}
+```
+
+
+## Table of Contents
+-   [Introduction](#intro)
+-   [Book Data](#book-data)
+    - [Sourcing data](#sourcing-data)
+    - [Creating a new data frame](#new-dataframe)
+    - [Mutating new variables](#new-variable-mutation)
+    - [Producing summaries](#summary-production)
+-   [Board game data](#board-game-data)
+    - [Board games table familiarization](#table-familiarization)
+    - [Writing a SQL query](#writing-sql-query)
+-   [Your choice!](#your-choice)
+
+<hr class="solid">
+
+## Introduction {#intro}
+
+- Explain **what word** you have used to select books and board games from the Google Books API and boardgamegeek.com. 
+- Also explain what you thought might be similar about books and board games with this word in their name, and what you thought might be different about them.
+- Write at least 100 words.
+
+The word that I have chosen to select books and board games from the **Google Books API** and **boardgamegeek.com** is **Life**. Things that I thought would be similar were books about getting through the process of life, and games that in some what resembled life. For instance, you could have a book about someone's life story, their path, and events that took place, and you could have a board game that sort of "simulates" the life experience. In terms of differences, since we're searching for our word in the title, we could get results like "Wildlife", which may not be related to the board games at all.
+
+## Book data {#book-data}
+
+### Sourcing data from the Google Books API {#sourcing-data}
+
+
+```{r}
+query <- "https://www.googleapis.com/books/v1/volumes?q=intitle:%22Life%22&startIndex=1&maxResults=40"
+response <- fromJSON(query, flatten = TRUE)
+book_data <- response$items
+
+book_data %>%
+  select(volumeInfo.title, volumeInfo.publishedDate) %>%
+  knitr::kable()
+```
+
+### Creating a new data frame {#new-dataframe}
+
+```{r}
+mini_data <- book_data %>%
+  select(volumeInfo.title,
+         volumeInfo.pageCount,
+         volumeInfo.publishedDate,
+         volumeInfo.publisher,
+         volumeInfo.averageRating,
+         selfLink) %>%
+  rename(book_title = volumeInfo.title,
+         page_count = volumeInfo.pageCount,
+         published_date = volumeInfo.publishedDate,
+         publisher = volumeInfo.publisher,
+         average_rating = volumeInfo.averageRating,
+         self_link = selfLink) %>%
+  arrange(page_count)
+knitr::kable(mini_data)
+```
+
+### Mutating new variables {#new-variable-mutation}
+
+
+```{r}
+mutated_data <- mini_data %>%
+  mutate(year_published = str_sub(published_date, 1, 4) %>% as.numeric(),
+         month_published = str_sub(published_date, 6, 7) %>% as.numeric(),
+         publisher_uppercase = toupper(publisher))
+knitr::kable(mutated_data)
+```
+
+### Producing summaries {#summary-production}
+
+
+```{r}
+summarised_data = mutated_data %>%
+  group_by(year_published) %>%
+  summarise(books_published = n())
+knitr::kable(summarised_data)
+```
+
+Looking at the table above, from **1991** to **2011**, the amounts of books published in those years alternates between **1** book and **2** books. In **2015**, we have our highest publish rate with **6** books in that year, then the following year it dips down again to **2** books. Then in **2018**, it suddenly jumps up to **4** books published, and for the last two years (**2019** and **2020**), we have **3** books published.
+
+<hr class="solid">
+
+## Board game data {#board-game-data}
+
+### Familiarising yourself with the fields/columns of the `boardgames` table {#table-familiarization}
+
+
+```{r}
+dbListFields(db_connection, "boardgames")[1:25]
+```
+
+### Writing a SQL query {#writing-sql-query}
+
+Write a SQL query to the `boardgamegeek.sqlite` database
+
+
+```{sql connection = db_connection, output.var = "board_game_data"}
+SELECT `details.name` as `name`, `details.minplayers` as `min_players`, `details.maxplayers` as `max_players`, `details.yearpublished` as `year_published`
+  FROM boardgames
+  WHERE min_players > 1 AND `name` LIKE '%Life%'
+  ORDER BY year_published DESC
+  LIMIT 40
+```
+
+```{r}
+board_game_data %>%
+  mutate(years_since_published = 2022 - year_published) %>%
+  knitr::kable()
+```
+
+<hr class="solid">
+
+## Your choice! {#your-choice}
+
+I have decided to create a *GIF slideshow* of all the book covers from my initial API request back in [Sourcing data](#sourcing-data). The techniques/knowledge used here are:
+
+- Extracting vectors from a data frame (I extract the **volumeInfo.imageLinks.smallThumbnail** vector here)
+- Extracting values from vectors to create a new vector by using a vector as the "filter" vector which contains true/false values
+- Using the various `image_*` functions from the `{magick}` package
+
+
+```{r}
+img_urls <- book_data$volumeInfo.imageLinks.smallThumbnail
+img_urls <- img_urls[!is.na(img_urls)]
+image_read(img_urls) %>%
+  image_join() %>%
+  image_animate(fps = 1)
+```
+
+<hr class="solid">
+
+## Learning reflection
+
+
+One important idea that I learned from **Module 3** was how we can leverage SQL powerful capabilities with all the other nice things we've learned about such as data frames, vectors, image creation, and plotting. I didn't realize how easy it would be to implement SQL capability in an R-Markdown file to generate dynamic reports - this is definitely a powerful and useful feature. Coming from a more "traditional" programming background, I would be keen to explore how I would be able to connect to an actual MySQL server instance as opposed to querying a local SQLite flatfile. This is probably out of the scope of this course, but could be something for me to explore myself in my own time :)
