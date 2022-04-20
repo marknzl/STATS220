@@ -106,7 +106,7 @@ summarised_data = mutated_data %>%
 knitr::kable(summarised_data)
 ```
 
-Looking at the table above, from **1991** to **2011**, the amounts of books published in those years alternates between **1** book and **2** books. In **2015**, we have our highest publish rate with **6** books in that year, then the following year it dips down again to **2** books. Then in **2018**, it suddenly jumps up to **4** books published, and for the last two years (**2019** and **2020**), we have **3** books published.
+Looking at the table above, the amount of books published across the years mostly alternates between **1** and **2** books from **1991** to **2011**, however, we do have one year between those dates with a publish rate of **3** books in **2000**. In **2015**, we suddenly see a spike of **6** books published - it would be interesting to know why we have this anomaly here. 
 
 <hr class="solid">
 
@@ -120,8 +120,6 @@ dbListFields(db_connection, "boardgames")[1:25]
 ```
 
 ### Writing a SQL query {#writing-sql-query}
-
-Write a SQL query to the `boardgamegeek.sqlite` database
 
 
 ```{sql connection = db_connection, output.var = "board_game_data"}
