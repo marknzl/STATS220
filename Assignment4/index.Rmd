@@ -1,0 +1,76 @@
+---
+title: "Assignment 4"
+output: html_document
+date: '2022-05-19'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, error = FALSE)
+library(magick)
+library(tidyverse)
+library(jsonlite)
+library(gganimate)
+
+spotify_data <- fromJSON("spotify_data.json") %>%
+  mutate(is_fast = ifelse(tempo < 120, FALSE, TRUE))
+```
+
+```{r}
+plot_1 <- spotify_data %>%
+  ggplot(aes(x = danceability, y = is_fast, colour = is_fast)) +
+  geom_boxplot(alpha = 0.30) +
+  geom_jitter(height = 0.2) +
+  theme(panel.background = element_rect(fill = "white")) +
+  scale_colour_manual(values = c("TRUE" = "#f54242", "FALSE" = "#3f28b5")) +
+  labs(title = "Song danceability vs is song \"fast\"",
+       subtitle = "(\"is_fast\" based off tempo threshold of 120)",
+       caption = "Sourced from Spotify",
+       x = "Danceability",
+       y = "Is fast")
+
+plot_1 + 
+  transition_states(is_fast)
+```
+
+```{r}
+plot_2 <- spotify_data %>%
+  ggplot(aes(x = energy)) +
+  geom_freqpoly(aes(colour = is_fast, fill = is_fast)) +
+  theme(panel.background = element_rect(fill = "white")) +
+  scale_colour_manual(values = c("TRUE" = "#f54242", "FALSE" = "#3f28b5")) +
+  labs(title = "Song energy by speed",
+       subtitle = "(speed based off tempo threshold of 120)",
+       caption = "Sourced from Spotify",
+       x = "Song energy",
+       y = "Song count")
+
+plot_2
+```
+
+```{r}
+plot_3 <- spotify_data %>%
+  ggplot(aes(x = acousticness)) +
+  geom_histogram(aes(fill = is_fast),  colour = "#000000") +
+  theme(panel.background = element_rect(fill = "white")) +
+  scale_colour_manual(values = c("TRUE" = "#f54242", "FALSE" = "#3f28b5")) +
+  labs(title = "Song acousticness by speed",
+       subtitle = "(speed based off tempo threshold of 120)",
+       caption = "Sourced from Spotify",
+       x = "Song acousticness",
+       y = "Song count")
+
+plot_3
+```
+
+```{r}
+plot_4 <- spotify_data %>%
+  ggplot(aes(x = liveness, y = danceability, colour = is_fast)) +
+  geom_smooth() +
+  theme(panel.background = element_rect(fill = "white")) +
+  scale_colour_manual(values = c("TRUE" = "#f54242", "FALSE" = "#3f28b5")) +
+  labs(title = "Song liveness vs danceability",
+       caption = "Sourced from Spotify",
+       x = "Liveness",
+       y = "Danceability")
+plot_4
+```
