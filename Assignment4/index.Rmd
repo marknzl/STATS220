@@ -1,7 +1,9 @@
 ---
-title: "Assignment 4"
+title: "Assignment 4 😎"
+author: "Mark Anklesaria"
+subtitle: "STATS220 Semester One 2022"
 output: html_document
-date: '2022-05-19'
+date: '2022-05-16'
 ---
 
 ```{r setup, include=FALSE}
@@ -11,60 +13,168 @@ library(tidyverse)
 library(jsonlite)
 library(gganimate)
 
-spotify_data <- fromJSON("spotify_data.json") %>%
-  mutate(is_fast = ifelse(tempo < 120, FALSE, TRUE))
+spotify_data <- fromJSON("spotify_data.json")
 ```
+
+## Table of Contents
+
+- [Intro](#intro): Introduction to my narrative
+- [Visualization 1 (animated)](#viz-1): Comparing danceability vs if a song is *hype*
+  - [Visualization 1 code](#viz-1-code)
+  - [Visualiazation 1 GIF](#viz-1-gif)
+- [Visualization 2](#viz-2): Poly line visualization of a song's energy, coloured by whether a song is *hype* or not
+  - [Visualization 2 code](#viz-2-code)
+  - [Visualization 2 plot](#viz-2-plot)
+- [Visualization 3](#viz-3): Histogram of song acousticness, coloured by whether a song is *hype* or not.
+  - [Visualization 3 code](#viz-3-code)
+  - [Visualization 3 plot](#viz-3-plot)
+- [Visualization 4](#viz-4): Plot of liveness vs danceability, coloured by whether a song is *hype* or not.
+  - [Visualization 4 code](#viz-4-code)
+  - [Visualization 4 plot](#viz-4-plot)
+- [How I applied the "grammar of graphics"](#applying-gog)
+- [Things I tried but didn't work](#things-tried)
+- [My final conclusion](#final-conclusion)
+  
+<hr/>
+
+## Intro {#intro}  
+
+<div class="row">
+
+<div class="left-column">
+The internet is full of wonderful things that provide us with entertainment, make us laugh, and also make our lives easier. One of the most prominent things that exist on the internet till this date are **memes**. Internet memes connect people and bring us joy and laughter. One of the most important aspects of making a good meme is the song in the meme. The song should hype us up, be lively, and energetic. Hence, I wanted to look into these factors related to meme songs, visualization them, and see if I could spot any patterns.
+
+One of the most important aspects of a meme song is how **hype** it is. In my opinion, the more **hype** the song, the better. You will see that throughout the creation of my visualizations, I create a new variable called `is_hype` which is based on the condition of whether a song has a tempo of 120 BPM or more. This tempo threshold of 120 number wasn't chosen that arbitrarily, as according to [sources](https://symphonynovascotia.ca/faqs/symphony-101/how-do-musicians-know-how-fast-to-play-a-piece-and-why-are-the-terms-in-italian/): "*Allegro – fast, quickly and bright (109–132 BPM)*". Therefore, I chose a threshold of 120 BPM for the threshold of determining whether a song is considered "hype" or not.
+</div>
+
+<div class="right-column" style="margin-top: 0%">
+<img src="https://c.tenor.com/F7-S_CN5TqkAAAAj/frog-dancing.gif" style="width: 200%">
+</div>
+
+</div>
+
+<hr/>
+
+## Visualization 1 {#viz-1}
+
+### Visualization 1 code {#viz-1-code}
 
 ```{r}
 plot_1 <- spotify_data %>%
-  ggplot(aes(x = danceability, y = is_fast, colour = is_fast)) +
+  mutate(is_hype = ifelse(tempo < 120, FALSE, TRUE)) %>%
+  filter(track_popularity != 0) %>%
+  ggplot(aes(x = danceability, y = is_hype, colour = is_hype)) +
   geom_boxplot(alpha = 0.30) +
   geom_jitter(height = 0.2) +
   theme(panel.background = element_rect(fill = "white")) +
   scale_colour_manual(values = c("TRUE" = "#f54242", "FALSE" = "#3f28b5")) +
-  labs(title = "Song danceability vs is song \"fast\"",
-       subtitle = "(\"is_fast\" based off tempo threshold of 120)",
+  labs(title = "Song danceability vs is song \"hype\"",
+       subtitle = "(\"is_hype\" based off tempo threshold of 120)",
        caption = "Sourced from Spotify",
        x = "Danceability",
-       y = "Is fast")
-
-plot_1 + 
-  transition_states(is_fast)
+       y = "Is hype")
 ```
+
+<div class="row">
+
+<div class="left-column">
+### Visualization 1 GIF {#viz-1-gif}
+```{r}
+plot_1 + 
+  transition_states(is_hype)
+```
+</div>
+
+<div class="right-column">
+### Narrative
+Meme songs should be danceable. One of the variables that I have access to is a song's "danceability". According to the Spotify API: "*Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity.*". In this plot over here, I have created two box plots using `geom_boxplot()` of songs' danceabilities, coloured by whether a song is "hype" or not. On top of this visualization, I have added a jitter overlay using `geom_jitter()`. I have also filtered out songs in the data frame that have a track popularity of 0, because after all, would I really want to dance to a song that wasn't popular?... **Answer: NOPE!**
+</div>
+
+</div>
+
+<hr/>
+
+## Visualization 2 {#viz-2}
+
+### Visualization 2 code {#viz-2-code}
 
 ```{r}
 plot_2 <- spotify_data %>%
+  mutate(is_hype = ifelse(tempo < 120, FALSE, TRUE)) %>%
   ggplot(aes(x = energy)) +
-  geom_freqpoly(aes(colour = is_fast, fill = is_fast)) +
+  geom_freqpoly(aes(colour = is_hype, fill = is_hype)) +
   theme(panel.background = element_rect(fill = "white")) +
   scale_colour_manual(values = c("TRUE" = "#f54242", "FALSE" = "#3f28b5")) +
-  labs(title = "Song energy by speed",
-       subtitle = "(speed based off tempo threshold of 120)",
+  labs(title = "Song energy by hype",
+       subtitle = "(\"is_hype\" based off tempo threshold of 120)",
        caption = "Sourced from Spotify",
        x = "Song energy",
        y = "Song count")
+```
 
+<div class="row">
+
+<div class="left-column">
+### Visualization 2 plot {#viz-2-plot}
+```{r}
 plot_2
 ```
+</div>
+
+<div class="right-column">
+### Narrative
+Song energy is a vital component of a worthy meme song. The Spotify API states that: "*Song energy represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy.*" In this freq poly plot (`geom_freqploy()`), I graph the energy of songs which are then coloured by whether a song is "hype" or not. This helps me understand whether or not there is any correlation between a song's energy level and whether or not a song is considered "hype". 
+</div>
+
+</div>
+
+<hr/>
+
+## Visualization 3 {#viz-3}
+
+### Visualization 3 code {#viz-3-code}
 
 ```{r}
 plot_3 <- spotify_data %>%
+  mutate(is_hype = ifelse(tempo < 120, FALSE, TRUE)) %>%
   ggplot(aes(x = acousticness)) +
-  geom_histogram(aes(fill = is_fast),  colour = "#000000") +
+  geom_histogram(aes(fill = is_hype),  colour = "#000000") +
   theme(panel.background = element_rect(fill = "white")) +
   scale_colour_manual(values = c("TRUE" = "#f54242", "FALSE" = "#3f28b5")) +
-  labs(title = "Song acousticness by speed",
-       subtitle = "(speed based off tempo threshold of 120)",
+  labs(title = "Song acousticness by hype",
+       subtitle = "(\"is_hype\" based off tempo threshold of 120)",
        caption = "Sourced from Spotify",
        x = "Song acousticness",
        y = "Song count")
+```
 
+<div class="row">
+
+<div class="left-column">
+### Visualization 3 plot {#viz-3-plot}
+```{r}
 plot_3
 ```
+</div>
+
+<div class="right-column">
+### Narrative
+Meme songs should ideally be very clear and audible by the audiences watching memes. This plot here is a simple histogram (`geom_histogram()`) of the number of songs that have a certain acousticness. Again, like the other plots, I have coloured the bars by whether a song is considered "hype" or not.
+</div>
+
+</div>
+
+<hr/>
+
+## Visualization 4 {#viz-4}
+
+### Visualization 4 code {#viz-4-code}
 
 ```{r}
 plot_4 <- spotify_data %>%
-  ggplot(aes(x = liveness, y = danceability, colour = is_fast)) +
+  mutate(is_hype = ifelse(tempo < 120, FALSE, TRUE)) %>%
+  filter(track_popularity != 0) %>%
+  ggplot(aes(x = liveness, y = danceability, colour = is_hype)) +
   geom_smooth() +
   theme(panel.background = element_rect(fill = "white")) +
   scale_colour_manual(values = c("TRUE" = "#f54242", "FALSE" = "#3f28b5")) +
@@ -72,5 +182,115 @@ plot_4 <- spotify_data %>%
        caption = "Sourced from Spotify",
        x = "Liveness",
        y = "Danceability")
+```
+
+<div class="row">
+
+<div class="left-column">
+### Visualization 4 plot {#viz-4-plot}
+
+```{r}
 plot_4
+```
+</div>
+
+<div class="right-column">
+### Narrative
+According to the Spotify API, "*Liveness detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live.*". I was interested in seeing the correlation between this liveness factor and how danceable a song is, so this smooth line plot (`geom_smooth()`) shows me that, and is also coloured by "is"hype". Similar to the plot in [Visualization 1](#viz-1), I have filtered out songs that have a 0 track popularity as we here are dealing with danceability as well.
+</div>
+
+</div>
+
+<hr/>
+
+<div class="row">
+
+<div style="flex: 50%">
+## How I applied the "grammar of graphics" 💬{#applying-gog}
+
+On each plot I made, I applied the "grammar of graphics" by:  
+
+<ul>
+<li>Calling the base plot command: `ggplot(aes(...))`</li>
+<li>Then adding onto the base plot using:</li>
+<ul>
+<li>Specifying the plot type: `geom_<plot_type>()`</li>
+<li>Overlaying an additional plot: `geom_jitter(...)`</li>
+<li>Theming the plot: `theme()`</li>
+<li>Changing scale colours: `scale_colour_manual()`</li>
+<li>Adjusting the labels: `labs(title = "...", subtitle = "...", ...)`</li>
+</ul>
+</ul>
+
+</div>
+<div style="flex: 50%">
+## Things I tried but didn't work ❌ {#things-tried}
+
+Throughout this assignment, I tried a multitude of things that didn't end up working. One of them in particular was the animation of plots. For instance, for my second poly plot, I tried to transition the states to create a second GIF similar to the one in my first plot by doing:
+```
+plot_2 +
+  transition_states(is_hype)
+```
+However, this didn't work and I just got a bunch of random errors; so I just left the plot to remain static as the assignment spec anyway only wanted us to make one animated plot.
+
+Another thing I tried that didn't "work" was the use of other types of variables when making my plots. I wanted to make visualizations which did show some type of correlation, and not all variables were able to achieve this, so I had to spend a bit of time playing around to see what worked.
+</div>
+</div>
+
+<hr/>
+
+<div class="row">
+
+<div class="left-column">
+## My final conclusion {#final-conclusion}
+In conclusion, I found this assignment very enjoyable as I got to exercise creativity but also incorporate logic to create a final work-piece which showcases what I have learned in this module and also previous modules. I made use of functions from `{tidyverse}` which we learned previously, got to play around with plotting functions from `{tidyverse}` as well, and of course, creating the animations thanks to `{gganimate}`.
+</div>
+
+<div class="right-column" style="margin-top: 0%">
+<img src="https://c.tenor.com/FVcuPXrzs6sAAAAC/we-did-it.gif"/>
+</div>
+
+</div>
+
+<hr/>
+
+## CSS code (for reference)
+```{css, echo=TRUE}
+body {
+  background-color: black;
+}
+
+h1, h3, h4, p, ul, li {
+  color: white;
+}
+
+h1 {
+  font-style: italic;
+}
+
+h2 {
+  text-transform: uppercase;
+	background: linear-gradient(60deg, #4bc4d6 0%, #f52a2a 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+hr {
+  background: linear-gradient(to right, #4bc4d6 0%, #f52a2a 100%);
+  height: 5px;
+}
+
+.row {
+  display: flex;
+}
+
+.left-column {
+  flex: 60%;
+}
+
+.right-column {
+  margin-left: 30px;
+  margin-top: 17%;
+  flex: 40%;
+}
 ```
