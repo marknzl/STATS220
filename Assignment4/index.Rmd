@@ -16,24 +16,26 @@ library(gganimate)
 spotify_data <- fromJSON("spotify_data.json")
 ```
 
+<div class="contents-border">
 ## Table of Contents
 
 - [Intro](#intro): Introduction to my narrative
-- [Visualization 1 (animated)](#viz-1): Comparing danceability vs if a song is *hype*
+- [Visualization 1 (animated)](#viz-1): Comparing danceability vs if a song is ✨*hype*✨
   - [Visualization 1 code](#viz-1-code)
   - [Visualiazation 1 GIF](#viz-1-gif)
-- [Visualization 2](#viz-2): Poly line visualization of a song's energy, coloured by whether a song is *hype* or not
+- [Visualization 2](#viz-2): Poly line visualization of a song's energy, coloured by whether a song is ✨*hype* ✨or not
   - [Visualization 2 code](#viz-2-code)
   - [Visualization 2 plot](#viz-2-plot)
-- [Visualization 3](#viz-3): Histogram of song acousticness, coloured by whether a song is *hype* or not.
+- [Visualization 3](#viz-3): Histogram of song acousticness, coloured by whether a song is ✨*hype* ✨or not.
   - [Visualization 3 code](#viz-3-code)
   - [Visualization 3 plot](#viz-3-plot)
-- [Visualization 4](#viz-4): Plot of liveness vs danceability, coloured by whether a song is *hype* or not.
+- [Visualization 4](#viz-4): Plot of liveness vs danceability, coloured by whether a song is ✨*hype*✨or not.
   - [Visualization 4 code](#viz-4-code)
   - [Visualization 4 plot](#viz-4-plot)
 - [How I applied the "grammar of graphics"](#applying-gog)
 - [Things I tried but didn't work](#things-tried)
 - [My final conclusion](#final-conclusion)
+</div>
   
 <hr/>
 
@@ -42,9 +44,9 @@ spotify_data <- fromJSON("spotify_data.json")
 <div class="row">
 
 <div class="left-column">
-The internet is full of wonderful things that provide us with entertainment, make us laugh, and also make our lives easier. One of the most prominent things that exist on the internet till this date are **memes**. Internet memes connect people and bring us joy and laughter. One of the most important aspects of making a good meme is the song in the meme. The song should hype us up, be lively, and energetic. Hence, I wanted to look into these factors related to meme songs, visualization them, and see if I could spot any patterns.
+The internet is full of wonderful things that provide us with entertainment, make us laugh, and also make our lives easier. One of the most prominent things that exist on the internet till this date are **memes**. Internet memes connect people and bring us joy and laughter. One of the most important aspects of making a good meme is the song in the meme. The song should hype us up, be lively, and energetic. Hence, I wanted to look into these factors related to meme songs, visualize them, and see if I could spot any patterns/correlations.
 
-One of the most important aspects of a meme song is how **hype** it is. In my opinion, the more **hype** the song, the better. You will see that throughout the creation of my visualizations, I create a new variable called `is_hype` which is based on the condition of whether a song has a tempo of 120 BPM or more. This tempo threshold of 120 number wasn't chosen that arbitrarily, as according to [sources](https://symphonynovascotia.ca/faqs/symphony-101/how-do-musicians-know-how-fast-to-play-a-piece-and-why-are-the-terms-in-italian/): "*Allegro – fast, quickly and bright (109–132 BPM)*". Therefore, I chose a threshold of 120 BPM for the threshold of determining whether a song is considered "hype" or not.
+One of the most important aspects of a meme song is how **hype** it is. In my opinion, the more **hype** the song, the better. You will see that throughout the creation of my visualizations, I create a new variable using `mutate()` called `is_hype` which is based on the condition of whether a song has a tempo of 120 BPM or more. This tempo threshold of 120 number wasn't exactly chosen arbitrarily, as according to [sources](https://symphonynovascotia.ca/faqs/symphony-101/how-do-musicians-know-how-fast-to-play-a-piece-and-why-are-the-terms-in-italian/): "*Allegro – fast, quickly and bright (109–132 BPM)*". Therefore, I chose a threshold of 120 BPM for the threshold of determining whether a song is considered "hype" or not.
 </div>
 
 <div class="right-column" style="margin-top: 0%">
@@ -68,7 +70,7 @@ plot_1 <- spotify_data %>%
   geom_jitter(height = 0.2) +
   theme(panel.background = element_rect(fill = "white")) +
   scale_colour_manual(values = c("TRUE" = "#f54242", "FALSE" = "#3f28b5")) +
-  labs(title = "Song danceability vs is song \"hype\"",
+  labs(title = "Song danceability by is song \"hype\" or not",
        subtitle = "(\"is_hype\" based off tempo threshold of 120)",
        caption = "Sourced from Spotify",
        x = "Danceability",
@@ -105,7 +107,7 @@ plot_2 <- spotify_data %>%
   geom_freqpoly(aes(colour = is_hype, fill = is_hype)) +
   theme(panel.background = element_rect(fill = "white")) +
   scale_colour_manual(values = c("TRUE" = "#f54242", "FALSE" = "#3f28b5")) +
-  labs(title = "Song energy by hype",
+  labs(title = "Song energy by \"hype\"",
        subtitle = "(\"is_hype\" based off tempo threshold of 120)",
        caption = "Sourced from Spotify",
        x = "Song energy",
@@ -141,7 +143,7 @@ plot_3 <- spotify_data %>%
   geom_histogram(aes(fill = is_hype),  colour = "#000000") +
   theme(panel.background = element_rect(fill = "white")) +
   scale_colour_manual(values = c("TRUE" = "#f54242", "FALSE" = "#3f28b5")) +
-  labs(title = "Song acousticness by hype",
+  labs(title = "Song acousticness by \"hype\"",
        subtitle = "(\"is_hype\" based off tempo threshold of 120)",
        caption = "Sourced from Spotify",
        x = "Song acousticness",
@@ -292,5 +294,12 @@ hr {
   margin-left: 30px;
   margin-top: 17%;
   flex: 40%;
+}
+
+.contents-border {
+  border: 3px;
+  border-style: solid;
+  border-color: #4bc4d6;
+  padding: 15px;
 }
 ```
