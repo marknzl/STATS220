@@ -13,6 +13,7 @@ library(tidyverse)
 library(jsonlite)
 library(gganimate)
 
+# PLAYLIST URL, FOR MARKER'S REFERENCE: https://open.spotify.com/playlist/4aKpKdEJ2IfE9uEImu6ryr
 spotify_data <- fromJSON("spotify_data.json")
 ```
 
@@ -20,16 +21,16 @@ spotify_data <- fromJSON("spotify_data.json")
 ## Table of Contents
 
 - [Intro](#intro): Introduction to my narrative
-- [Visualization 1 (animated)](#viz-1): Comparing danceability vs if a song is ✨*hype*✨
+- [Visualization 1 (animated)](#viz-1): Comparing danceability by if a song is ✨*hype*✨ or not.
   - [Visualization 1 code](#viz-1-code)
   - [Visualiazation 1 GIF](#viz-1-gif)
 - [Visualization 2](#viz-2): Poly line visualization of a song's energy, coloured by whether a song is ✨*hype* ✨or not
   - [Visualization 2 code](#viz-2-code)
   - [Visualization 2 plot](#viz-2-plot)
-- [Visualization 3](#viz-3): Histogram of song acousticness, coloured by whether a song is ✨*hype* ✨or not.
+- [Visualization 3](#viz-3): Histogram of song acousticness, coloured by whether a song is ✨*hype*✨ or not.
   - [Visualization 3 code](#viz-3-code)
   - [Visualization 3 plot](#viz-3-plot)
-- [Visualization 4](#viz-4): Plot of liveness vs danceability, coloured by whether a song is ✨*hype*✨or not.
+- [Visualization 4](#viz-4): Plot of liveness vs danceability, coloured by whether a song is ✨*hype*✨ or not.
   - [Visualization 4 code](#viz-4-code)
   - [Visualization 4 plot](#viz-4-plot)
 - [How I applied the "grammar of graphics"](#applying-gog)
