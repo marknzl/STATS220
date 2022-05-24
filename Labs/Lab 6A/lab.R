@@ -45,5 +45,5 @@ compare_headlines <- tibble(headline1 = headlines_data$headline[1:100], headline
   mutate(similarity_score = get_similarity(headline1, headline2))
 
 print(round(compare_headlines[59,]$similarity_score, 1))
-print(round(0.17647059, 1))
+print(round(max(compare_headlines$similarity_score), 1))
 print(round(mean(compare_headlines$similarity_score), 1))
