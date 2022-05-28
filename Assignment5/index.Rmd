@@ -1,0 +1,42 @@
+---
+title: "Assignment 5"
+author: "Mark Anklesaria"
+subtitle: "STATS220 Semester One 2022"
+output: html_document
+date: '2022-05-28'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+//
+
+## Visualization
+
+## Data creation
+
+## Final reflection
+
+## Code appendix
+
+```{r file='data_web.R', eval=FALSE}
+
+```
+
+```{r file='data_api.R', eval=FALSE}
+
+```
+
+```{r file='data_join.R', eval=FALSE}
+
+```
+
+```{r file='data_viz.R', eval=FALSE}
+
+```
+
+```{r file='data_creativity.R', eval=FALSE}
+
+```
