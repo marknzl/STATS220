@@ -9,11 +9,6 @@ urls <- c(
   "https://music.apple.com/us/playlist/top-100-australia/pl.18be1cf04dfd4ffb9b6b0453e8fae8f1"
 )
 
-mins_sec_to_seconds <- function(splitted) {
-  print(splitted[1])
-  return(as.numeric(splitted[1]) * 60 + as.numeric(splitted[2]) * 60)
-}
-
 apple_data <- map_df(1 : length(urls), function(i) {
   Sys.sleep(2)
   page <- read_html(urls[i])
@@ -45,7 +40,13 @@ apple_data <- map_df(1 : length(urls), function(i) {
     html_text2() %>%
     as.numeric()
   
-  return(tibble(trackId, track_name, track_length, track_url, track_popularity_position, date_scraped = now()))
+  track_country <- page %>%
+    html_elements(".product-page-header") %>%
+    html_elements("h1") %>%
+    html_text2() %>% 
+    str_remove_all("Top 100: ")
+  
+  return(tibble(trackId, track_name, track_length, track_url, track_popularity_position, track_country, date_scraped = now()))
 })
 
 saveRDS(apple_data, "apple_data.rds")
